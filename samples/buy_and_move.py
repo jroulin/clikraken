@@ -17,7 +17,7 @@ import sys
 
 from clikraken.api.api_utils import load_api_keyfile
 from clikraken.api.private.get_balance import get_balance
-from clikraken.api.private.list_open_orders import list_open_orders
+from clikraken.api.private.list_closed_orders import list_closed_orders
 from clikraken.api.private.list_withdrawals import list_withdrawals
 from clikraken.api.private.list_withdraw_information import list_withdraw_information
 from clikraken.api.private.place_order import place_order
@@ -104,8 +104,9 @@ class DollarCostAveragingAutomaton(AbstractAutomaton):
             print(res)
 
     def wait_for_transaction(self, data):
-        res = list_open_orders(txid=data["txid"])
-        if len(res) == 0:
+        res = list_closed_orders(txid=data["txid"])
+        if data["txid"] in res and res[data["txid"]]["status"] == "closed":
+            data["target_amount"] = res[data["txid"]]["vol_exec"]
             self.set_state("transfer", data)
         else:
             print(res)
@@ -114,8 +115,12 @@ class DollarCostAveragingAutomaton(AbstractAutomaton):
         bal = get_balance()
         if data["to"] not in bal:
             print("no", data["to"], "to send")
-        if bal[data["to"]] < data["target_amount"]:
-            print("not enough", data["to"], "=>", bal[data["to"]])
+        if bal[data["to"]] < data["target_amount"] * Decimal("0.9"):
+            print(
+                "not enough {} {} < {}".format(
+                    data["to"], bal[data["to"]], bal[data["to"]]
+                )
+            )
         else:
             try:
                 res = withdraw(
@@ -141,6 +146,7 @@ class DollarCostAveragingAutomaton(AbstractAutomaton):
 
     def done(self, data):
         os.unlink(self.get_state_file())
+        print("done")
 
 
 def main(argv):
