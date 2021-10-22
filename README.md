@@ -43,6 +43,7 @@ See list of changes in the [Changelog](CHANGELOG.md).
 | private | `ClosedOrders` | clist (cl) |
 | private | `DepositAddresses` | deposit\_addresses (da) |
 | private | `DepositMethods` | deposit\_methods (dm) |
+| private | `DepositStatus` | deposit\_status (ds) |
 | private | `Ledgers` | ledgers (lg) |
 | private | `OpenOrders` | olist (ol) |
 | private | `OpenPositions` | positions (pos) |
@@ -64,7 +65,7 @@ You can install it in a virtualenv if you wish to keep this program and dependen
 
 ```
 mkdir -p ~/.venv  # or any folder of your choice
-pyvenv ~/.venv/clikraken
+python -m venv ~/.venv/clikraken
 ```
 
 And activate it:
@@ -128,13 +129,13 @@ Output:
 ```
 usage: clikraken [-h] [-V] [--debug] [--raw] [--json] [--csv]
                  [--csvseparator CSVSEPARATOR] [--cron]
-                 {generate_settings,asset_pairs,ap,depth,d,last_trades,lt,ohlc,oh,ticker,t,cancel,x,balance,bal,deposit_addresses,da,deposit_methods,dm,ledgers,lg,trade_balance,tbal,clist,cl,olist,ol,positions,pos,list_withdraw_information,lwi,list_withdrawals,lw,place,p,trades,tr,withdraw,wd}
+                 {generate_settings,asset_pairs,ap,depth,d,last_trades,lt,ohlc,oh,ticker,t,cancel,x,balance,bal,deposit_addresses,da,deposit_methods,dm,deposit_status,ds,ledgers,lg,trade_balance,tbal,clist,cl,olist,ol,positions,pos,list_withdraw_information,lwi,list_withdrawals,lw,place,p,trades,tr,withdraw,wd}
                  ...
 
 clikraken - Command line client for the Kraken exchange
 
 positional arguments:
-  {generate_settings,asset_pairs,ap,depth,d,last_trades,lt,ohlc,oh,ticker,t,cancel,x,balance,bal,deposit_addresses,da,deposit_methods,dm,ledgers,lg,trade_balance,tbal,clist,cl,olist,ol,positions,pos,list_withdraw_information,lwi,list_withdrawals,lw,place,p,trades,tr,withdraw,wd}
+  {generate_settings,asset_pairs,ap,depth,d,last_trades,lt,ohlc,oh,ticker,t,cancel,x,balance,bal,deposit_addresses,da,deposit_methods,dm,deposit_status,ds,ledgers,lg,trade_balance,tbal,clist,cl,olist,ol,positions,pos,list_withdraw_information,lwi,list_withdrawals,lw,place,p,trades,tr,withdraw,wd}
                         available subcommands
     generate_settings   [clikraken] Print default settings.ini to stdout
     asset_pairs (ap)    [public] Get the list of available asset pairs
@@ -148,6 +149,8 @@ positional arguments:
                         [private] Get deposit addresses
     deposit_methods (dm)
                         [private] Get deposit methods
+    deposit_status (ds)
+                        [private] Get deposit status
     ledgers (lg)        [private] Get ledgers info
     trade_balance (tbal)
                         [private] Get your current trade balance

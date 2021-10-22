@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Switch to GitHub actions to run CI
 - Add `samples/buy_and_move.py` to automate a DCA process and demonstrate how to use the libraries in Python code.
 - Allow to use commands as functions in Python code.
-- Add the `list_withdraw_information`, `withdraw`, `list_withdrawals` commands.
+- Add the `list_withdraw_information`, `withdraw`, `list_withdrawals`, `deposit_status` commands.
 - Add `stop-loss`, `take-profit`, `stop-loss-limit` and `take-profit-limit` order support in `place_order` command.
 - Dynamically load commands.
 
