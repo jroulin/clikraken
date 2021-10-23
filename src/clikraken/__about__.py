@@ -12,12 +12,12 @@ __all__ = [
 
 __title__ = "clikraken"
 __summary__ = "Command-line client for the Kraken exchange"
-__url__ = "https://github.com/zertrin/clikraken"
+__url__ = "https://github.com/jroulin/clikraken"
 
-__version__ = "0.8.3.2"
+__version__ = "0.9.0.0"
 
-__author__ = "Marc Gallet"
-__email__ = "zertrin@gmail.com"
+__author__ = "Jean Roulin"
+__email__ = "jroulin@protonmail.com"
 
 __license__ = "Apache License, Version 2.0"
 

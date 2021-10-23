@@ -1,12 +1,12 @@
 ![Actively Maintained](https://img.shields.io/badge/Maintenance%20Level-Actively%20Maintained-green.svg)
 
-[![GitHub Actions](https://github.com/flepied/clikraken/actions/workflows/validate-pr.yaml/badge.svg)](https://github.com/flepied/clikraken/actions)
+[![GitHub Actions](https://github.com/jroulin/clikraken/actions/workflows/validate-pr.yaml/badge.svg)](https://github.com/jroulin/clikraken/actions)
 
 [![PyPI Package latest release](https://img.shields.io/pypi/v/clikraken.svg)](https://pypi.python.org/pypi/clikraken)
 [![Wheel available](https://img.shields.io/pypi/wheel/clikraken.svg)](https://pypi.python.org/pypi/clikraken)
 [![Supported Versions](https://img.shields.io/pypi/pyversions/clikraken.svg)](https://pypi.python.org/pypi/clikraken)
 [![Supported implementations](https://img.shields.io/pypi/implementation/clikraken.svg)](https://pypi.python.org/pypi/clikraken)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/flepied/clikraken/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/jroulin/clikraken/master/LICENSE)
 
 # clikraken
 
@@ -76,7 +76,7 @@ source ~/.venv/clikraken/bin/activate
 ### Step 1: Install clikraken
 
 ```
-pip install clikraken
+pip install git+https://github.com/jroulin/clikraken
 ```
 
 If everything went well, `clikraken --version` should output the program's version without error.
