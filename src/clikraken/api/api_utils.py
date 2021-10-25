@@ -62,7 +62,7 @@ def query_api(api_type, api_method, api_params, args):
         "private": gv.KRAKEN_API.query_private,
     }
     # select the appropriate method depending on the api_type string
-    func = api_func.get(api_type)
+    func = api_func[api_type]
 
     # if cron mode is active, tone down some connection related errors in order to
     # not raise too many cron emails when Kraken is temporarily not available
@@ -71,24 +71,26 @@ def query_api(api_type, api_method, api_params, args):
     else:
         log = logger.error
 
-    if func is not None:
-        try:
-            if args.debug:
-                logger.debug("{} {} {}".format(api_type, api_method, api_params))
-            # call to the krakenex API
-            res = func(api_method, api_params)
-        except (socket.timeout, socket.error, http.client.BadStatusLine) as e:
-            log("Network error while querying Kraken API!")
-            log("Error details: " + repr(e))
-        except ValueError as e:
-            log(
-                "Invalid response from Kraken API! "
-                "(This can happen when Kraken API is overloaded. "
-                "Try your luck again later.)"
-            )
-            log("Error details: " + repr(e))
-        except Exception:
-            logger.exception("Exception while querying Kraken API!")
+    try:
+        if args.debug:
+            logger.debug("{} {} {}".format(api_type, api_method, api_params))
+        # call to the krakenex API
+        res = func(api_method, api_params)
+    except (socket.timeout, socket.error, http.client.BadStatusLine) as e:
+        log("Network error while querying Kraken API!")
+        log("Error details: " + repr(e))
+        res = {"error": ["Network:" + repr(e)]}
+    except ValueError as e:
+        log(
+            "Invalid response from Kraken API! "
+            "(This can happen when Kraken API is overloaded. "
+            "Try your luck again later.)"
+        )
+        log("Error details: " + repr(e))
+        res = {"error": ["APIError:" + repr(e)]}
+    except Exception as e:
+        logger.exception("Exception while querying Kraken API!")
+        res = {"error": ["Exception:" + repr(e)]}
 
     err = res.get("error", [])
     for e in err:
@@ -100,13 +102,14 @@ def query_api(api_type, api_method, api_params, args):
             log = logger.error
         log("{}".format(e))
 
+    if args.raw:
+        print_results(res)
+
     if err != [] and log == logger.error:
         exit(os.EX_PROTOCOL)
 
-    if args.raw:
-        print_results(res)
-        if not args.debug:
-            exit(os.EX_OK)
+    if args.raw and not args.debug:
+        exit(os.EX_OK)
 
     if args.json:
         print_json(res)

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Allow to use commands as functions in Python code.
 - Add the `list_withdraw_information`, `withdraw`, `list_withdrawals`, `deposit_status` commands.
 - Add `stop-loss`, `take-profit`, `stop-loss-limit` and `take-profit-limit` order support in `place_order` command.
+- Add a non 0 exit status in case of error. Expose error details when passed `--raw`.
 - Dynamically load commands.
 
 ## 0.8.3.2 - 2020-02-16
